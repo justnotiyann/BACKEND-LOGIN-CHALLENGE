@@ -1,0 +1,28 @@
+<div class="container" id="container_login">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-6">
+      <div class="card p-5 shadow p-3 mb-5 bg-body rounded">
+        <h1 class="fw-bold">Silahkan Reset Password Anda</h1>
+        <form action="/forgot/edit/" method="POST" autocomplete="off">
+          <div class="col mb-3">
+            <input name="email" value="<%=result.email%>" type="hidden" />
+            <label for="password" class="form-label">Masukkan Password</label>
+            <input required type="password" name="password" class="form-control" />
+          </div>
+          <div class="col">
+            <button class="btn btn-success mt-1 w-100">Ubah Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+  #container_login {
+    margin-top: 10em;
+  }
+</style>

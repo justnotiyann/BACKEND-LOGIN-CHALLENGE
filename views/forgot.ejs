@@ -1,0 +1,31 @@
+<div class="container" id="container_login">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-6">
+      <div class="card p-5 shadow p-3 mb-5 bg-body rounded">
+        <div class="header">
+          <h1 class="fw-bold">Form Ubah Password</h1>
+          <p>Masukkan email yang terdaftar pada sistem</p>
+        </div>
+        <div class="alert alert-<%= color %>" role="alert"><%= alert %></div>
+        <form action="/forgot" method="POST" autocomplete="off">
+          <div class="col">
+            <label for="email" class="form-label">Masukkan email</label>
+            <input required type="email" name="email" class="form-control" />
+          </div>
+          <div class="col">
+            <button class="btn btn-success mt-1 w-100">Ubah Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+  #container_login {
+    margin-top: 10em;
+  }
+</style>
