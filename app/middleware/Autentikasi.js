@@ -17,4 +17,19 @@ const checkLogin = async (req, res, next) => {
   }
 };
 
-module.exports = { checkLogin };
+const checkRole = async (req, res, next) => {
+  try {
+    const checkRole = req.session.role;
+    if (checkRole !== "admin") {
+      res.status(StatusCodes.FORBIDDEN).json({
+        msg: "akses terlarang",
+      });
+    } else {
+      next();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+module.exports = { checkLogin, checkRole };

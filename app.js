@@ -44,7 +44,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 const authRoutes = require("./app/api/auth/authRouter");
 const productRoutes = require("./app/api/products/productRouter");
-app.use("/auth", authRoutes);
+// const indexRoutes = require("./routes/indexRoutes");
+// app.use("/", indexRoutes);
+app.use("/", authRoutes);
 app.use("/products", productRoutes);
 
 app.use((req, res, next) => {

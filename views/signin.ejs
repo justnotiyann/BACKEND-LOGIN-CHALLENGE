@@ -1,0 +1,42 @@
+<div class="container" id="container_login">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-6">
+      <div class="card p-5 shadow p-3 mb-5 bg-body rounded">
+        <div class="alert alert-<%= color %>" role="alert"><%= alert %></div>
+        <h1 class="fw-bold">Form Login</h1>
+        <form action="/signin" method="POST" autocomplete="off">
+          <div class="col">
+            <label for="email" class="form-label">Masukkan email</label>
+            <input required type="email" name="email" class="form-control" />
+          </div>
+          <div class="col">
+            <label for="password" class="form-label">Masukkan Password</label>
+            <input required type="password" name="password" class="form-control" />
+          </div>
+          <div class="col mt-3">
+            <div class="row">
+              <div class="col-6">
+                <p><a href="">Lupa Password ?</a></p>
+              </div>
+              <div class="col-6">
+                <p>Belum punya akun ? <a href="/signup">Daftar disini</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <button class="btn btn-success mt-1 w-100">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+  #container_login {
+    margin-top: 10em;
+  }
+</style>

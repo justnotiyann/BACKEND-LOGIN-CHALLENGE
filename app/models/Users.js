@@ -6,6 +6,10 @@ const usersSchema = new Schema(
   {
     email: String,
     password: String,
+    role: {
+      type: String,
+      default: "user",
+    },
   },
   {
     timestamps: true,
