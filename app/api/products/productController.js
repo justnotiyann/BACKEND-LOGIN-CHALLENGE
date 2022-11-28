@@ -1,4 +1,4 @@
-const Products = require("../../models/Products");
+const Products = require("./productsModel");
 const productServices = require("../../services/mongoose/productServices");
 const { StatusCodes } = require("http-status-codes");
 
@@ -6,11 +6,11 @@ const getAllProducts = async (req, res, next) => {
   try {
     const result = await productServices.getAllProducts();
     if (result <= 0) {
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         msg: "data belum tersedia",
       });
     }
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       msg: "berikut data",
       data: result,
     });
@@ -24,6 +24,21 @@ const createProduct = async (req, res, next) => {
     const result = await productServices.createProduct(req);
     if (!result) res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "terjadi kesalahan" });
     res.status(StatusCodes.CREATED).json({ msg: "data berhasil dibuat" });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const deleteProduct = async (req, res, next) => {
+  try {
+    const checkProduct = await productServices.getById(req);
+
+    if (!checkProduct) {
+      res.status(StatusCodes.BAD_REQUEST).json({ msg: "Data tidak ditemukan" });
+    } else {
+      const result = await productServices.deleteProduct(req);
+      res.status(StatusCodes.OK).json({ msg: "berikut data", data: result });
+    }
   } catch (e) {
     console.log(e);
   }

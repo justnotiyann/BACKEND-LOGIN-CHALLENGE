@@ -1,5 +1,5 @@
-const Users = require("../models/Users");
-const Admin = require("../models/Admin");
+const Users = require("../api/users/Users");
+const Admin = require("../api/admin/Admin");
 const { StatusCodes } = require("http-status-codes");
 
 const checkLogin = async (req, res, next) => {

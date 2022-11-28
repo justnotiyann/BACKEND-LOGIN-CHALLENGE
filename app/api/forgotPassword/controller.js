@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const Users = require("../../models/Users");
+const Users = require("../users/Users");
 const { StatusCodes } = require("http-status-codes");
 const argon2 = require("argon2");
 

@@ -1,4 +1,4 @@
-const Users = require("../../models/Users");
+const Users = require("../users/Users");
 const argon2 = require("argon2");
 const { body, validationResult } = require("express-validator");
 const servicesAuth = require("../../services/mongoose/authServices");

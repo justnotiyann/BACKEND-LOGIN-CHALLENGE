@@ -1,12 +1,13 @@
-const db = require("../config/db");
+const db = require("../../config/db");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    name: String,
+    book_title: String,
+    author: String,
     price: String,
-    country: String,
+    publisher: String,
   },
   { timestamps: true }
 );
