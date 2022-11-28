@@ -18,7 +18,6 @@ const getAllProducts = async (req, res, next) => {
     console.log(e);
   }
 };
-
 const createProduct = async (req, res, next) => {
   try {
     const result = await productServices.createProduct(req);
@@ -28,7 +27,6 @@ const createProduct = async (req, res, next) => {
     console.log(e);
   }
 };
-
 const deleteProduct = async (req, res, next) => {
   try {
     const checkProduct = await productServices.getById(req);
@@ -42,7 +40,6 @@ const deleteProduct = async (req, res, next) => {
     console.log(e);
   }
 };
-
 const updateProduct = async (req, res, next) => {
   try {
     const result = await productServices.updateProduct(req);

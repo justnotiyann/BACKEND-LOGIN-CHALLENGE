@@ -1,4 +1,4 @@
-const Users = require("../api/users/Users");
+const Users = require("../api/users/usersModel");
 const Admin = require("../api/admin/Admin");
 const { StatusCodes } = require("http-status-codes");
 

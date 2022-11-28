@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const controllerAuth = require("./authController");
 const { body, validationResult } = require("express-validator");
-const { renderSignInSignUp } = require("../../components/signUpSignIn");
+const { renderSignInSignUp } = require("../../components/components");
 
 router.get("/signin", controllerAuth.renderSignIn);
 router.get("/signup", controllerAuth.renderSignUp);

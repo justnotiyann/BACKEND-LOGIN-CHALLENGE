@@ -1,50 +1,17 @@
 const nodemailer = require("nodemailer");
-const Users = require("../users/Users");
-const { StatusCodes } = require("http-status-codes");
+const Users = require("../users/usersModel");
 const argon2 = require("argon2");
+const { StatusCodes } = require("http-status-codes");
+const { transporter } = require("./nodemailer");
+const { renderSignInSignUpForgot, renderForgotEjs, renderUbahPassForm, renderAlert } = require("../../components/components");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  auth: {
-    user: "grover.oberbrunner44@ethereal.email",
-    pass: "tCnjckva6jq3YdxT6g",
-  },
-});
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
+const renderPage = (req, res, next) => {
+  try {
+    renderSignInSignUpForgot("forgot", "Halaman ubah password", "", "", res);
+  } catch (e) {
+    console.log(e);
   }
-});
-
-const renderForgotEjs = (path, title, color, alert, res) => {
-  res.render(path, {
-    layout: "./layout/main",
-    title,
-    color,
-    alert,
-  });
 };
-const renderUbahPassForm = (path, title, color, alert, result, res) => {
-  res.render(path, {
-    layout: "./layout/main",
-    title,
-    color,
-    alert,
-    result,
-  });
-};
-const renderAlert = (path, title, color, alert, res) => {
-  res.render(path, {
-    layout: "./layout/main",
-    title,
-    color,
-    alert,
-  });
-};
-
 const sendEmail = async (req, res, next) => {
   try {
     const getEmailUser = req.body.email;
@@ -70,7 +37,6 @@ const sendEmail = async (req, res, next) => {
     console.log(e);
   }
 };
-
 const getFormUpdateUser = async (req, res) => {
   try {
     const id = req.params.id;
@@ -80,7 +46,6 @@ const getFormUpdateUser = async (req, res) => {
     console.log(e);
   }
 };
-
 const updateUser = async (req, res) => {
   try {
     const { email, password, confirmPass } = req.body;
@@ -102,4 +67,4 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { sendEmail, updateUser, getFormUpdateUser };
+module.exports = { renderPage, sendEmail, updateUser, getFormUpdateUser };

@@ -42,9 +42,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-const authRoutes = require("./app/api/auth/authRouter");
-const productRoutes = require("./app/api/products/productRouter");
-const indexRoutes = require("./app/api/index/indexRoutes");
+const authRoutes = require("./app/api/auth/router");
+const productRoutes = require("./app/api/products/router");
+const indexRoutes = require("./app/api/index/router");
 const forgotPassRoutes = require("./app/api/forgotPassword/router");
 app.use("/", indexRoutes);
 app.use("/auth", authRoutes);
