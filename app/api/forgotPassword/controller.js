@@ -3,31 +3,14 @@ const Users = require("../../models/Users");
 const { StatusCodes } = require("http-status-codes");
 const argon2 = require("argon2");
 
-const renderUI = (path, title, color, alert, res) => {
-  res.render(path, {
-    layout: "./layout/main",
-    title: title,
-    color: color,
-    alert: alert,
-  });
-};
-const renderUI2 = (path, title, result, res) => {
-  res.render(path, {
-    layout: "./layout/main",
-    title: title,
-    result,
-  });
-};
-
 const transporter = nodemailer.createTransport({
   host: "smtp.ethereal.email",
   port: 587,
   auth: {
-    user: "kellie10@ethereal.email",
-    pass: "PQVGcjz7WGndWxAN7j",
+    user: "grover.oberbrunner44@ethereal.email",
+    pass: "tCnjckva6jq3YdxT6g",
   },
 });
-
 transporter.verify(function (error, success) {
   if (error) {
     console.log(error);
@@ -36,26 +19,43 @@ transporter.verify(function (error, success) {
   }
 });
 
+const renderForgotEjs = (path, title, color, alert, res) => {
+  res.render(path, {
+    layout: "./layout/main",
+    title,
+    color,
+    alert,
+  });
+};
+const renderUbahPass2 = (path, title, color, alert, result, res) => {
+  res.render(path, {
+    layout: "./layout/main",
+    title,
+    color,
+    alert,
+    result,
+  });
+};
+
 const sendEmail = async (req, res, next) => {
   try {
     const getEmailUser = req.body.email;
     const getEmailDatabase = await Users.findOne({ email: getEmailUser });
     if (getEmailUser == "") {
-      res.status(StatusCodes.BAD_REQUEST).json({ msg: "harap isi email anda" });
+      renderForgotEjs("forgot", "Terjadi kesalahan", "warning", "Harap isi email anda", res);
     } else {
       if (!getEmailDatabase) {
-        res.status(StatusCodes.NOT_FOUND).json({ msg: "email tidak ditemukan" });
+        renderForgotEjs("forgot", "Terjadi kesalahan", "warning", "Email tidak ditemukan", res);
       } else {
         const link = `localhost:3000/forgot/edit/${getEmailDatabase._id}`;
         const messageEmail = {
-          from: "kellie10@ethereal.email",
+          from: "muhammadfitrian0712@gmail.com",
           to: getEmailUser,
           subject: "Permohonan Ubah Password",
           html: `Silahkan ubah password dengan klik link berikut <a href=${link}>Disini</a>`,
         };
         const email = await transporter.sendMail(messageEmail);
-        renderUI("forgot", "Berhasil Terkirim", "success", "Silahkan cek email anda", res);
-        //    res.status(StatusCodes.OK).json({ msg: "data berhasil dikirim" });
+        renderForgotEjs("forgot", "Berhasil Terkirim", "success", "Silahkan cek email anda", res);
       }
     }
   } catch (e) {
@@ -65,11 +65,13 @@ const sendEmail = async (req, res, next) => {
 
 const updateUser = async (req, res) => {
   try {
-    const id = req.params.id;
-    const { password } = req.body;
+    const { email, password } = req.body;
     const hashPass = await argon2.hash(password, 10);
-    const result = await Users.findOneAndUpdate({ _id: id }, { password: hashPass });
-    res.status(StatusCodes.CREATED).json({ msg: "data berhasil di update" });
+    const result = await Users.findOneAndUpdate({ email: email }, { password: hashPass });
+    const link = `berhasil ubah password, silahkan <a href="/signin">Login disini</a>`;
+    renderUbahPass2("ubah-pass-form", "Halaman reset password", "success", link, result, res);
+    // renderUbahPass2("ubah-pass-form", "Halaman reset password", result, res);
+    // res.status(StatusCodes.CREATED).json({ msg: "data berhasil di update" });
   } catch (e) {
     console.log(e);
   }
@@ -79,7 +81,8 @@ const getFormUpdateUser = async (req, res) => {
   try {
     const id = req.params.id;
     const result = await Users.findOne({ _id: id });
-    renderUI2("ubahPass2", "Halaman ubah password", result, res);
+    renderUbahPass2("ubah-pass-form", "Halaman reset password", "", "", result, res);
+    // renderUbahPass2("ubahPass2", "Halaman ubah password", result, res);
   } catch (e) {
     console.log(e);
   }

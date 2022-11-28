@@ -3,7 +3,8 @@
     <div class="col-lg-6">
       <div class="card p-5 shadow p-3 mb-5 bg-body rounded">
         <h1 class="fw-bold">Silahkan Reset Password Anda</h1>
-        <form action="/forgot/edit/" method="POST" autocomplete="off">
+        <div class="alert alert-<%= color %>" role="alert"><%- alert %></div>
+        <form action="/forgot/change/" method="POST" autocomplete="off">
           <div class="col mb-3">
             <input name="email" value="<%=result.email%>" type="hidden" />
             <label for="password" class="form-label">Masukkan Password</label>

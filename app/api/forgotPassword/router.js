@@ -10,13 +10,11 @@ const renderUI = (path, title, color, alert, res) => {
   });
 };
 
-//
-
 router.get("/", (req, res) => {
   renderUI("forgot", "Halaman ubah password", "", "", res);
 });
 router.post("/", controller.sendEmail);
 router.get("/edit/:id", controller.getFormUpdateUser);
-router.post("/edit/:id", controller.updateUser);
+router.post("/change", controller.updateUser);
 
 module.exports = router;
