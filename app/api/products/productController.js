@@ -32,16 +32,27 @@ const createProduct = async (req, res, next) => {
 const deleteProduct = async (req, res, next) => {
   try {
     const checkProduct = await productServices.getById(req);
-
     if (!checkProduct) {
       res.status(StatusCodes.BAD_REQUEST).json({ msg: "Data tidak ditemukan" });
     } else {
       const result = await productServices.deleteProduct(req);
-      res.status(StatusCodes.OK).json({ msg: "berikut data", data: result });
+      res.status(StatusCodes.OK).json({ msg: "data berhasil dihapus" });
     }
   } catch (e) {
     console.log(e);
   }
 };
 
-module.exports = { getAllProducts, createProduct };
+const updateProduct = async (req, res, next) => {
+  try {
+    const result = await productServices.updateProduct(req);
+    if (!result) {
+      res.status(StatusCodes.BAD_REQUEST).json({ msg: "terjadi kesalahan" });
+    }
+    res.status(StatusCodes.CREATED).json({ msg: "data berhasil diupdate" });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+module.exports = { getAllProducts, createProduct, deleteProduct, updateProduct };

@@ -2,8 +2,10 @@
   <div class="row justify-content-center align-items-center">
     <div class="col-lg-6">
       <div class="card p-5 shadow p-3 mb-5 bg-body rounded">
-        <h1 class="fw-bold">Form Daftar</h1>
         <div class="alert alert-<%= color %>" role="alert"><%= alert %></div>
+        <h1 class="fw-bold mb-4">
+          <a href="/signup" id="form_daftar_anchor">Form Daftar</a>
+        </h1>
         <form action="/signup" method="POST" autocomplete="off" class="mb-4">
           <div class="col">
             <label for="email" class="form-label">Masukkan email</label>
@@ -13,8 +15,12 @@
             <label for="password" class="form-label">Masukkan Password</label>
             <input required type="password" name="password" class="form-control" />
           </div>
+          <div class="col mb-3">
+            <label for="confirmPass" class="form-label">Masukkan Kembali Password</label>
+            <input required type="password" name="confirmPass" class="form-control" />
+          </div>
           <div class="col">
-            <button class="btn btn-success mt-1 w-100">Daftar</button>
+            <button class="btn btn-success w-100">Daftar</button>
           </div>
         </form>
       </div>
@@ -25,6 +31,9 @@
 <style>
   a {
     text-decoration: none;
+  }
+  #form_daftar_anchor {
+    color: inherit;
   }
   #container_login {
     margin-top: 10em;

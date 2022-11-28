@@ -24,4 +24,14 @@ const deleteProduct = async (req) => {
   return result;
 };
 
-module.exports = { getAllProducts, createProduct, getById, deleteProduct };
+const updateProduct = async (req) => {
+  const id = req.params.id;
+  const options = { new: true };
+  const checkProduct = await getById(req);
+  if (checkProduct) {
+    const result = await Products.findByIdAndUpdate(id, req.body, options);
+    return result;
+  }
+};
+
+module.exports = { getAllProducts, createProduct, getById, deleteProduct, updateProduct };
