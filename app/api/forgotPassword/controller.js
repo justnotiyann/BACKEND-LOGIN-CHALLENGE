@@ -27,13 +27,21 @@ const renderForgotEjs = (path, title, color, alert, res) => {
     alert,
   });
 };
-const renderUbahPass2 = (path, title, color, alert, result, res) => {
+const renderUbahPassForm = (path, title, color, alert, result, res) => {
   res.render(path, {
     layout: "./layout/main",
     title,
     color,
     alert,
     result,
+  });
+};
+const renderAlert = (path, title, color, alert, res) => {
+  res.render(path, {
+    layout: "./layout/main",
+    title,
+    color,
+    alert,
   });
 };
 
@@ -63,26 +71,32 @@ const sendEmail = async (req, res, next) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const getFormUpdateUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const hashPass = await argon2.hash(password, 10);
-    const result = await Users.findOneAndUpdate({ email: email }, { password: hashPass });
-    const link = `berhasil ubah password, silahkan <a href="/signin">Login disini</a>`;
-    renderUbahPass2("ubah-pass-form", "Halaman reset password", "success", link, result, res);
-    // renderUbahPass2("ubah-pass-form", "Halaman reset password", result, res);
-    // res.status(StatusCodes.CREATED).json({ msg: "data berhasil di update" });
+    const id = req.params.id;
+    const result = await Users.findOne({ _id: id });
+    renderUbahPassForm("ubah-pass-form", "Halaman reset password", "", "", result, res);
   } catch (e) {
     console.log(e);
   }
 };
 
-const getFormUpdateUser = async (req, res) => {
+const updateUser = async (req, res) => {
   try {
-    const id = req.params.id;
-    const result = await Users.findOne({ _id: id });
-    renderUbahPass2("ubah-pass-form", "Halaman reset password", "", "", result, res);
-    // renderUbahPass2("ubahPass2", "Halaman ubah password", result, res);
+    const { email, password, confirmPass } = req.body;
+    let alert;
+    if (password !== confirmPass) {
+      alert = "Password dan konfirmasi password tidak ! sama,";
+      renderAlert("alert", "Terjadi kesalahan", "warning", alert, res);
+    } else if (password.length <= 5) {
+      alert = "Password minimal 5 karakter";
+      renderAlert("alert", "Terjadi kesalahan", "warning", alert, res);
+    } else {
+      const hashPass = await argon2.hash(password, 10);
+      const result = await Users.findOneAndUpdate({ email: email }, { password: hashPass });
+      alert = `berhasil ubah password, silahkan <a href="/signin">Login disini</a>`;
+      renderUbahPassForm("ubah-pass-form", "Halaman reset password", "success", alert, result, res);
+    }
   } catch (e) {
     console.log(e);
   }

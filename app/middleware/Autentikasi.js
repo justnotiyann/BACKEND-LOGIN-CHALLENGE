@@ -4,11 +4,9 @@ const { StatusCodes } = require("http-status-codes");
 
 const checkLogin = async (req, res, next) => {
   try {
-    const checkSession = req.session.email;
+    const checkSession = req.session;
     if (!checkSession) {
-      res.status(StatusCodes.UNAUTHORIZED).json({
-        msg: "harap login ke akun anda",
-      });
+      res.redirect("/signin");
     } else {
       next();
     }
