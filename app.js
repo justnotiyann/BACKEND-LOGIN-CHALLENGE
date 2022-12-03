@@ -1,4 +1,3 @@
-const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -17,7 +16,7 @@ var store = new MongoDBStore({
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: 'mongodb://127.0.0.1/qwars_login_system',
     cookie: {
       maxAge: 1000 * 60 * 60 * 1, // 1 hour
     },

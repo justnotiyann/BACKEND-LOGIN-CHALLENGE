@@ -23,5 +23,18 @@
     "morgan": "~1.9.1",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "description": "BACKEND LOGIN SISTEM QWARS",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnotiyann/BACKEND-LOGIN-CHALLENGE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justnotiyann/BACKEND-LOGIN-CHALLENGE/issues"
+  },
+  "homepage": "https://github.com/justnotiyann/BACKEND-LOGIN-CHALLENGE#readme"
 }
